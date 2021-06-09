@@ -5,6 +5,7 @@ import yfinance as yf
 from collections import Counter
 
 #############
+# put your information here
 enter_user_info_here = praw.Reddit(client_id='',
                                    client_secret='',
                                    user_agent='',
@@ -22,6 +23,7 @@ class Ticker:
         self.count = self.count + 1
 
     def __str__(self):
+        #subreddit is mentioned here
         return "\nThe ticker {} was mentioned {} times on r/SPACs".format(self.ticker, self.count)
 
 
@@ -31,6 +33,7 @@ def get_top_stock_graph(tic_list):
     # plot closing prices
     ((data.pct_change() + 1).cumprod()).plot(figsize=(10, 7))
     plt.legend()
+    #subreddit is mentioned here
     plt.title("Performance of Most Mentioned Stocks in r/SPACs", fontsize=16)
     plt.ylabel('Cumulative Returns', fontsize=14)
     plt.xlabel("Time", fontsize=14)
@@ -91,13 +94,14 @@ def search(ticker_list, tic_tac, text):
     return
 
 
-def run():
+def main():
     top_tic = []
     ticker_list = []
     tic_tac = []
 
     reddit = enter_user_info_here
-
+    
+    #if you would like to change the subreddit, change it here
     subreddit = reddit.subreddit('SPACs')
     new_posts = subreddit.new(limit=1000)
 
@@ -127,4 +131,4 @@ def run():
     get_top_stock_graph(top_tic)
 
 
-run()
+main()
